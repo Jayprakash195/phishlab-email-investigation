@@ -1,0 +1,11 @@
+From: "Accounts Payable" <billing@invoice-check.example>
+Reply-To: <payment-team@freemail.example>
+Return-Path: <bounce@invoice-check.example>
+Subject: SIMULATED: Overdue invoice — urgent payment requested
+Authentication-Results: example; spf=neutral; dkim=none; dmarc=none
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+FICTIONAL TRAINING SAMPLE. No payment details or live links are present.
+Please urgently pay the attached invoice and bypass the usual approval process.
+Analyst note: urgency and process-bypass request are suspicious indicators, not proof alone.

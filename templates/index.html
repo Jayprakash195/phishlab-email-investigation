@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" data-max-upload-bytes="{{ max_upload_mb * 1024 * 1024 }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Offline-first phishing email investigation workbench for SOC Analyst L1 practice.">
+  <title>PhishLab | Email Investigation Workbench</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="PhishLab home">
+        <span class="brand-mark">P<span>+</span></span>
+        <span><strong>PhishLab</strong><small>INVESTIGATION WORKBENCH</small></span>
+      </a>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-item active" data-view="overview"><span class="nav-icon">◫</span>Overview</button>
+        <button class="nav-item" data-view="investigate"><span class="nav-icon">⌕</span>Email investigation</button>
+        <button class="nav-item" data-view="history"><span class="nav-icon">◷</span>Analysis history</button>
+        <button class="nav-item" data-view="reports"><span class="nav-icon">▤</span>Incident reports</button>
+        <button class="nav-item" data-view="tests"><span class="nav-icon">✓</span>Test information</button>
+        <button class="nav-item" data-view="about"><span class="nav-icon">ⓘ</span>About project</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mode-pill"><span class="pulse-dot"></span><span><strong>Offline parser</strong><small>No URL visits or reputation lookups</small></span></div>
+        <p class="sidebar-foot">SOC TRAINING TOOL <span>•</span> v1.0</p>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobile-menu" aria-label="Open navigation" aria-expanded="false">☰</button>
+        <div class="breadcrumb"><span>WORKSPACE</span><b>/</b><strong id="current-section">Overview</strong></div>
+        <div class="topbar-right"><span class="status-chip"><span class="status-dot"></span>Local analysis mode</span><span class="avatar">SOC</span></div>
+      </header>
+
+      <div class="page-content">
+        {% if startup_error %}<div class="notice error-notice" role="alert">{{ startup_error }}</div>{% endif %}
+        <section class="view active" id="view-overview" data-title="Overview">
+          <div class="page-heading"><div><p class="eyebrow">SECURITY OPERATIONS / WORKSPACE</p><h1>Email investigation <span>workbench</span></h1><p class="subheading">Inspect message structure, collect evidence, and document findings.</p></div><button class="button button-primary" data-go="investigate">＋ New investigation</button></div>
+          <div class="notice info-notice"><span class="notice-icon">i</span><div><strong>Evidence-first analysis</strong><p>This tool parses email content locally. It does not open URLs, verify sender identity, scan attachments, or query live threat-intelligence services.</p></div></div>
+          <div class="metric-grid">
+            <article class="metric-card"><div class="metric-top"><span>ANALYSES THIS SESSION</span><span class="metric-icon blue">⌕</span></div><div class="metric-value" id="metric-analyses">0</div><p>Current browser session only</p></article>
+            <article class="metric-card"><div class="metric-top"><span>URLS EXTRACTED</span><span class="metric-icon cyan">↗</span></div><div class="metric-value" id="metric-urls">0</div><p>Extraction is not reputation checking</p></article>
+            <article class="metric-card"><div class="metric-top"><span>REPORTS AVAILABLE</span><span class="metric-icon violet">▤</span></div><div class="metric-value">1</div><p>Existing fictional training report</p></article>
+            <article class="metric-card"><div class="metric-top"><span>PARSER STATUS</span><span class="metric-icon green">●</span></div><div class="metric-value metric-status" id="parser-status">Checking</div><p id="parser-status-note">Checking local backend</p></article>
+          </div>
+          <div class="content-grid overview-grid">
+            <article class="panel"><div class="panel-heading"><div><h2>Start an investigation</h2><p>Analyze an email file with the existing Python parser.</p></div><span class="panel-symbol">⌁</span></div><button class="upload-shortcut" data-go="investigate"><span class="upload-symbol">↑</span><span><strong>Upload a message</strong><small>Select a fictional .eml sample or your own authorized test file</small></span><span class="shortcut-arrow">→</span></button><div class="mini-list"><div><span class="mini-check">✓</span><span><strong>Header review</strong><small>Sender, Reply-To, subject, and available authentication headers</small></span></div><div><span class="mini-check">✓</span><span><strong>URL extraction</strong><small>Extracted URLs are defanged for display</small></span></div><div><span class="mini-check">✓</span><span><strong>Incident documentation</strong><small>Open the existing fictional incident report</small></span></div></div></article>
+            <article class="panel"><div class="panel-heading"><div><h2>Recent investigations</h2><p>Metadata retained in this page session only.</p></div><button class="text-button" data-go="history">View all →</button></div><div id="recent-list" class="empty-state"><span class="empty-icon">⌕</span><strong>No investigations yet</strong><p>Upload an .eml file to see the real parser results here.</p></div></article>
+          </div>
+          <div class="footer-note"><span>ⓘ</span> “No obvious indicators found” does not mean an email is safe. Use independent verification and organizational procedures.</div>
+        </section>
+
+        <section class="view" id="view-investigate" data-title="Email investigation">
+          <div class="page-heading"><div><p class="eyebrow">ANALYSIS MODULE / 01</p><h1>Email <span>investigation</span></h1><p class="subheading">Upload an .eml message. Analysis runs through the existing offline Python parser.</p></div><span class="page-tag"><span class="status-dot"></span>Backend connected by API</span></div>
+          <div class="investigation-layout">
+            <article class="panel upload-panel"><div class="panel-heading"><div><h2>Message input</h2><p>Only the email file is processed. URLs are not visited.</p></div><span class="step-number">01</span></div>
+              <form id="upload-form" novalidate>
+                <label class="dropzone" id="dropzone" for="email-file" tabindex="0"><input id="email-file" name="file" type="file" accept=".eml,message/rfc822" hidden><span class="drop-icon">↑</span><strong>Drop your email file here</strong><span>or <u>browse files</u></span><small>EML format · Maximum {{ max_upload_mb }} MB</small></label>
+                <div class="selected-file" id="selected-file" hidden><span class="file-icon">▤</span><span class="file-info"><strong id="file-name"></strong><small id="file-size"></small></span><button type="button" class="remove-file" id="remove-file" aria-label="Remove selected file">×</button></div>
+                <p class="form-error" id="form-error" role="alert" hidden></p>
+                <button class="button button-primary button-wide" id="analyze-button" type="submit" disabled><span class="button-label">Analyze email</span><span class="button-spinner" hidden></span><span>→</span></button>
+              </form>
+              <div class="privacy-note"><span>◇</span><p><strong>Privacy by design</strong><br>Uploaded bytes are processed in a temporary directory and removed after parsing. Message bodies are not stored in analysis history.</p></div>
+              <div class="sample-block"><div class="sample-title">FICTIONAL SAMPLE FILES</div><p>To test quickly, select a sample file from the project’s <code>samples</code> folder.</p><span class="sample-hint">Example: examplepay-fictional.eml</span></div>
+            </article>
+            <div class="results-column"><div class="results-placeholder" id="results-placeholder"><span class="placeholder-graphic">⌕</span><h2>Investigation results will appear here</h2><p>Choose an .eml file and run analysis to view extracted headers, URLs, and review indicators.</p><div class="placeholder-steps"><span>01 <small>Upload</small></span><i></i><span>02 <small>Parse</small></span><i></i><span>03 <small>Review</small></span></div></div><div id="results-panel" hidden></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-history" data-title="Analysis history"><div class="page-heading"><div><p class="eyebrow">SESSION RECORDS / 02</p><h1>Analysis <span>history</span></h1><p class="subheading">This list exists only in the current browser page session.</p></div><button class="button button-secondary" id="clear-history">Clear history</button></div><div class="panel"><div class="table-wrap"><table><thead><tr><th>FILE</th><th>SUBJECT</th><th>PRELIMINARY STATUS</th><th>TIME</th><th></th></tr></thead><tbody id="history-table"><tr><td colspan="5" class="table-empty">No analyses in this session.</td></tr></tbody></table></div></div><div class="footer-note"><span>ⓘ</span> History contains metadata only; it is not saved to a database and will clear when this page is reloaded.</div></section>
+
+        <section class="view" id="view-reports" data-title="Incident reports"><div class="page-heading"><div><p class="eyebrow">DOCUMENTATION / 03</p><h1>Incident <span>reports</span></h1><p class="subheading">Review existing project documentation and fictional training evidence.</p></div></div><div class="report-card"><div class="report-icon">▤</div><div class="report-details"><span class="report-type">MARKDOWN REPORT · FICTIONAL SCENARIO</span><h2>Phishing Email Investigation Report</h2><p>Existing project report. It is a training example, not a real-world incident finding.</p><div class="report-actions"><a class="button button-primary" href="/reports/incident-report" target="_blank" rel="noopener noreferrer">View report ↗</a><a class="button button-secondary" href="/reports/incident-report.pdf" target="_blank" rel="noopener noreferrer">Open PDF ↗</a></div></div><span class="report-badge">EXISTING FILE</span></div><div class="notice info-notice"><span class="notice-icon">i</span><div><strong>Report integrity</strong><p>The original Markdown and PDF are served from fixed project paths. The app does not let a user select arbitrary server files.</p></div></div></section>
+
+        <section class="view" id="view-tests" data-title="Test information"><div class="page-heading"><div><p class="eyebrow">QUALITY ASSURANCE / 04</p><h1>Test <span>information</span></h1><p class="subheading">Run the test suite in PowerShell to verify the current code.</p></div></div><div class="panel"><div class="panel-heading"><div><h2>How to run tests</h2><p>Test results shown here are instructions, not a live test execution result.</p></div><span class="metric-icon green">✓</span></div><div class="command-block"><code>py -m unittest discover -s tests -v</code><button id="copy-tests" class="copy-button" type="button">Copy command</button></div><p class="body-copy">The original parser tests cover URL defanging, domain defanging, sample header parsing, missing files, and URL extraction. New web tests cover the Flask routes and upload handling.</p><div class="test-warning"><strong>Important:</strong> This page does not run shell commands. Check the actual PowerShell output before reporting that tests passed.</div></div></section>
+
+        <section class="view" id="view-about" data-title="About project"><div class="page-heading"><div><p class="eyebrow">PROJECT PROFILE / 05</p><h1>About <span>PhishLab</span></h1><p class="subheading">A practical email investigation workbench for SOC Analyst L1 learning.</p></div></div><div class="content-grid"><article class="panel"><div class="panel-heading"><div><h2>Project objective</h2><p>Build repeatable, evidence-led email investigation habits.</p></div></div><p class="body-copy">This project demonstrates how a Python parser can extract selected email headers, message subject, URLs, and IP address strings from .eml files. The Flask interface makes that workflow accessible through a browser.</p><div class="tag-list"><span>Python</span><span>Flask</span><span>Email parsing</span><span>URL defanging</span><span>Incident reporting</span><span>Unit testing</span></div></article><article class="panel"><div class="panel-heading"><div><h2>Known limitations</h2><p>What this tool does not do.</p></div></div><ul class="limitation-list"><li>Does not independently verify SPF, DKIM, or DMARC.</li><li>Does not visit URLs or query external reputation services.</li><li>Does not execute attachments or scan malware.</li><li>Does not prove an email is benign or malicious automatically.</li><li>Uses fictional project examples for demonstration.</li></ul></article></div><div class="footer-note"><span>ⓘ</span> Use only on email files you are authorized to inspect. Follow your organization’s incident-response procedures.</div></section>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

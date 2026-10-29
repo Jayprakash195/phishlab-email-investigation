@@ -1,0 +1,7 @@
+From: Security Test <test@example.com>
+To: analyst@example.com
+Subject: URL extraction test
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Please review this test link: https://example.com/login

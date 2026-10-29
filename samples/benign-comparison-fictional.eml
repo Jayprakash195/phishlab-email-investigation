@@ -1,0 +1,10 @@
+From: "Training Bulletin" <training@company.example>
+Reply-To: <training@company.example>
+Subject: SIMULATED BENIGN COMPARISON: Monthly security awareness session
+Authentication-Results: example; spf=pass; dkim=pass; dmarc=pass
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+FICTIONAL TRAINING SAMPLE. Authentication results are illustrative, not observed.
+The monthly awareness session is scheduled for Friday. Open your usual internal portal manually.
+Analyst note: benign-looking content and simulated passing checks are not sufficient alone to prove legitimacy.

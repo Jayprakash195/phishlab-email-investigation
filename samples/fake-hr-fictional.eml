@@ -1,0 +1,10 @@
+From: "Human Resources" <hr-update@employee-portal.example>
+Reply-To: <hr-verification@freemail.example>
+Subject: SIMULATED: Review your updated employee policy
+Authentication-Results: example; spf=fail; dkim=none; dmarc=fail
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+FICTIONAL TRAINING SAMPLE. Do not follow any real links.
+Please review the updated policy using the portal. This sample contains no live URL.
+Analyst note: sender/reply mismatch and authentication failures warrant further review.

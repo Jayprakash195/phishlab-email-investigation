@@ -1,0 +1,22 @@
+Return-Path: <bounce@mail-secure-support.example>
+Received: from mail-secure-support.example (unknown [203.0.113.45])
+ by mx.victimcorp.example with ESMTP; Tue, 27 Oct 2026 03:14:22 +0000
+Authentication-Results: mx.victimcorp.example;
+ spf=fail smtp.mailfrom=mail-secure-support.example;
+ dkim=none; dmarc=fail header.from=examp1epay-support.example
+From: "ExamplePay Support" <service@examp1epay-support.example>
+Reply-To: <recovery.team@freemail.example>
+To: analyst@victimcorp.example
+Subject: URGENT: Your account will be suspended in 24 hours
+Date: Tue, 27 Oct 2026 08:44:10 +0530
+Message-ID: <8832.2231@mail-secure-support.example>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+FICTIONAL TRAINING SAMPLE — NOT A REAL EMAIL.
+Dear Customer,
+We detected unusual activity on your account. To avoid suspension,
+verify your identity within 24 hours:
+Verify Now -> hxxps://examp1epay-support[.]example/verify/login.php?id=88231
+Attachment: Account_Verification.html (not included; do not fetch from the URL)
+ExamplePay Security Team
