@@ -155,3 +155,17 @@ The web tests use Flask's test client. Do not report a passing result unless the
 The repository includes a `Procfile` using Gunicorn. In Render, create a new Web Service connected to the GitHub repository, select Python, set the build command to `pip install -r requirements-deploy.txt`, and use the start command from the `Procfile` (or enter `gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 30`). `requirements.txt` is for local Windows development; `requirements-deploy.txt` adds Gunicorn for the Linux hosting environment. Configure `MAX_UPLOAD_BYTES` only if needed. Do not enable Flask debug mode in production. Verify the deployed URL and upload a fictional sample after deployment; deployment has not been performed by this package-generation step.
 
 Before pushing to GitHub, review `.gitignore` and ensure the repository contains no real confidential email, credentials, API keys, or sensitive logs.
+
+## Screenshots
+
+### Dashboard
+![PhishLab Dashboard](docs/screenshots/dashboard.png)
+
+### Email Investigation
+![Email Investigation](docs/screenshots/email-investigation.png)
+
+### Review Indicators
+![Review Indicators](docs/screenshots/review-indicators.png)
+
+### Incident Report (PDF)
+![Incident Report PDF](docs/screenshots/incident-report.png)
